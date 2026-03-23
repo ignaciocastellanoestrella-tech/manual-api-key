@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WXStation Connect – API Key Guide</title>
+  <style>
+    :root {
+      --blue-dark:   #0d1b2a;
+      --blue-mid:    #1b4f72;
+      --blue-accent: #2e86c1;
+      --blue-light:  #aed6f1;
+      --teal:        #17a589;
+      --white:       #ffffff;
+      --gray-100:    #f4f6f9;
+      --gray-200:    #e8ecf0;
+      --gray-600:    #5a6a7a;
+      --warn:        #e67e22;
+      --radius:      10px;
+      --shadow:      0 4px 20px rgba(0,0,0,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--gray-100);
+      color: var(--blue-dark);
+      line-height: 1.65;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+      color: var(--white);
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+    header .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    header .logo svg { width: 48px; height: 48px; }
+    header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 700; letter-spacing: -0.5px; }
+    header p  { margin-top: 10px; font-size: 1rem; opacity: .8; }
+
+    /* ── LANG SELECTOR ── */
+    .lang-bar {
+      background: var(--blue-dark);
+      padding: 0 24px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+    .lang-btn {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: .85rem;
+      transition: background .2s, transform .1s;
+    }
+    .lang-btn:hover  { background: rgba(255,255,255,.25); }
+    .lang-btn.active { background: var(--teal); border-color: var(--teal); font-weight: 600; }
+
+    /* ── MAIN CONTENT ── */
+    main { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
+
+    /* intro */
+    .intro {
+      background: var(--white);
+      border-left: 5px solid var(--blue-accent);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow);
+    }
+    .intro p { font-size: 1rem; color: var(--gray-600); }
+
+    /* steps */
+    .steps { display: flex; flex-direction: column; gap: 40px; }
+
+    .step {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .step-header {
+      background: linear-gradient(90deg, var(--blue-accent), var(--blue-mid));
+      color: var(--white);
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .step-number {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-header h2 { font-size: 1.1rem; font-weight: 600; }
+
+    .step-body { padding: 28px; }
+    .step-body p { font-size: .97rem; color: #2c3e50; margin-bottom: 14px; }
+    .step-body p:last-child { margin-bottom: 0; }
+
+    .screenshot {
+      margin: 22px 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    .screenshot img {
+      width: 100%;
+      display: block;
+    }
+
+    /* warnings */
+    .warn-block {
+      background: #fef9f2;
+      border-left: 4px solid var(--warn);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: .93rem;
+      color: #7d5a2a;
+    }
+    .warn-block strong { color: var(--warn); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 28px;
+      font-size: .82rem;
+      color: var(--gray-600);
+      background: var(--gray-200);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<header>
+  <div class="logo">
+    <!-- weather icon svg -->
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.1)"/>
+      <circle cx="32" cy="26" r="10" fill="#FAD02E"/>
+      <path d="M18 40c0-5.5 4.5-10 10-10h8c5.5 0 10 4.5 10 10" stroke="#AED6F1" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="36" cy="40" rx="12" ry="7" fill="white" opacity=".9"/>
+      <ellipse cx="26" cy="42" rx="10" ry="6" fill="white"/>
+    </svg>
+    <h1>WXStation Connect</h1>
+  </div>
+  <p id="header-subtitle">Weather Underground API Key – Setup Guide</p>
+</header>
+
+<!-- ══════════════════════════════════════
+     LANGUAGE BAR
+══════════════════════════════════════ -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="showLang('en')">🇬🇧 English</button>
+  <button class="lang-btn" onclick="showLang('es')">🇪🇸 Español</button>
+  <button class="lang-btn" onclick="showLang('de')">🇩🇪 Deutsch</button>
+  <button class="lang-btn" onclick="showLang('fr')">🇫🇷 Français</button>
+  <button class="lang-btn" onclick="showLang('it')">🇮🇹 Italiano</button>
+  <button class="lang-btn" onclick="showLang('pt')">🇵🇹 Português</button>
+  <button class="lang-btn" onclick="showLang('nl')">🇳🇱 Nederlands</button>
+  <button class="lang-btn" onclick="showLang('pl')">🇵🇱 Polski</button>
+  <button class="lang-btn" onclick="showLang('cs')">🇨🇿 Čeština</button>
+  <button class="lang-btn" onclick="showLang('da')">🇩🇰 Dansk</button>
+  <button class="lang-btn" onclick="showLang('sv')">🇸🇪 Svenska</button>
+  <button class="lang-btn" onclick="showLang('nb')">🇳🇴 Norsk</button>
+  <button class="lang-btn" onclick="showLang('tr')">🇹🇷 Türkçe</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     MAIN
+══════════════════════════════════════ -->
+<main>
+
+<!-- ─────────────── ENGLISH ─────────────── -->
+<section class="lang-section active" id="lang-en">
+  <div class="intro"><p>Follow the three steps below to locate your <strong>Weather Underground API Key</strong> and your <strong>Station ID</strong>, and enter them into <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Access your Weather Underground profile</h2></div>
+      <div class="step-body">
+        <p>Go to <strong>wunderground.com</strong> and log in to your account. Once you are logged in, click on <strong>My Profile</strong> in the top-right corner of the screen. A dropdown menu will appear — select <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Step 1 – My Profile dropdown showing My Devices option" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Find your Station ID and navigate to API Keys</h2></div>
+      <div class="step-body">
+        <p>You are now on the <strong>Member Settings</strong> page, under the <strong>MY DEVICES</strong> tab. Here you will see the list of your registered weather stations.</p>
+        <p>In the <strong>ID</strong> column you will find your <strong>Station ID</strong> (e.g. <code>ICABRA64</code>). Copy it — you will also need it in WXStation Connect.</p>
+        <p>To access your API Key, click on the <strong>API KEYS</strong> tab at the top of the page.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Step 2 – Member Settings showing Station ID and API KEYS tab" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Copy or generate your API Key</h2></div>
+      <div class="step-body">
+        <p>In the <strong>API KEYS</strong> tab you will see your API Key (hidden by default). Click <strong>Show Key</strong> to reveal it, then click <strong>Copy to Clipboard</strong> and paste it into WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Step 3 – API Keys tab with Copy to Clipboard and Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ No API Key yet?</strong> Accept the Terms of Service and click <strong>Regenerate Key</strong> to generate a new one.</div>
+        <div class="warn-block"><strong>⚠️ Expired API Key?</strong> The expiration date is shown below the key. Accept the Terms of Service and click <strong>Regenerate Key</strong> to get a fresh one.</div>
+        <div class="warn-block"><strong>⚠️ API Key not working in WXStation Connect?</strong> Generate a new key by clicking <strong>Regenerate Key</strong>. Old keys can sometimes stop working and need to be renewed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── ESPAÑOL ─────────────── -->
+<section class="lang-section" id="lang-es">
+  <div class="intro"><p>Sigue los tres pasos a continuación para localizar tu <strong>API Key de Weather Underground</strong> y tu <strong>Station ID</strong>, e introducirlos en <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Accede a tu perfil en Weather Underground</h2></div>
+      <div class="step-body">
+        <p>Ve a <strong>wunderground.com</strong> e inicia sesión con tu cuenta. Una vez dentro, haz clic en <strong>My Profile</strong> en la esquina superior derecha de la pantalla. Se abrirá un menú desplegable — selecciona <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Paso 1 – Menú desplegable My Profile mostrando la opción My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Localiza tu Station ID y accede a las API Keys</h2></div>
+      <div class="step-body">
+        <p>Estás ahora en la pantalla <strong>Member Settings</strong>, en la pestaña <strong>MY DEVICES</strong>. Aquí verás la lista de tus estaciones meteorológicas registradas.</p>
+        <p>En la columna <strong>ID</strong> encontrarás tu <strong>Station ID</strong> (por ejemplo: <code>ICABRA64</code>). Cópialo — también lo necesitarás en WXStation Connect.</p>
+        <p>Para acceder a tu API Key, haz clic en la pestaña <strong>API KEYS</strong> en la parte superior.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Paso 2 – Member Settings mostrando Station ID y la pestaña API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Copia o genera tu API Key</h2></div>
+      <div class="step-body">
+        <p>En la pestaña <strong>API KEYS</strong> encontrarás tu clave de API (oculta por defecto). Haz clic en <strong>Show Key</strong> para verla y luego en <strong>Copy to Clipboard</strong> para copiarla e introducirla en WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Paso 3 – Pestaña API Keys con Copy to Clipboard y Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ ¿Aún no tienes API Key?</strong> Acepta los Términos de Servicio y haz clic en <strong>Regenerate Key</strong> para generar una nueva.</div>
+        <div class="warn-block"><strong>⚠️ ¿Tu API Key ha expirado?</strong> La fecha de caducidad aparece debajo de la clave. Acepta los Términos de Servicio y haz clic en <strong>Regenerate Key</strong> para obtener una nueva.</div>
+        <div class="warn-block"><strong>⚠️ ¿La API Key no funciona en WXStation Connect?</strong> Genera una nueva clave haciendo clic en <strong>Regenerate Key</strong>. Las claves antiguas pueden dejar de funcionar y es necesario renovarlas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── DEUTSCH ─────────────── -->
+<section class="lang-section" id="lang-de">
+  <div class="intro"><p>Folge den drei Schritten unten, um deinen <strong>Weather Underground API-Schlüssel</strong> und deine <strong>Station-ID</strong> zu finden und in <strong>WXStation Connect</strong> einzugeben.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Zugriff auf dein Weather Underground-Profil</h2></div>
+      <div class="step-body">
+        <p>Gehe zu <strong>wunderground.com</strong> und melde dich mit deinem Konto an. Klicke anschließend oben rechts auf <strong>My Profile</strong>. Ein Dropdown-Menü erscheint — wähle <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Schritt 1 – My Profile Dropdown mit der Option My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Station-ID finden und zu API-Schlüsseln navigieren</h2></div>
+      <div class="step-body">
+        <p>Du befindest dich nun auf der Seite <strong>Member Settings</strong>, im Tab <strong>MY DEVICES</strong>. Dort siehst du deine registrierten Wetterstationen.</p>
+        <p>In der Spalte <strong>ID</strong> findest du deine <strong>Station-ID</strong> (z.B. <code>ICABRA64</code>). Kopiere sie — du wirst sie auch in WXStation Connect benötigen.</p>
+        <p>Klicke auf den Tab <strong>API KEYS</strong>, um zu deinem API-Schlüssel zu gelangen.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Schritt 2 – Member Settings mit Station-ID und API KEYS Tab" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>API-Schlüssel kopieren oder generieren</h2></div>
+      <div class="step-body">
+        <p>Im Tab <strong>API KEYS</strong> siehst du deinen API-Schlüssel (standardmäßig verborgen). Klicke auf <strong>Show Key</strong>, um ihn anzuzeigen, dann auf <strong>Copy to Clipboard</strong>, um ihn in WXStation Connect einzufügen.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Schritt 3 – API Keys Tab mit Copy to Clipboard und Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Noch kein API-Schlüssel?</strong> Akzeptiere die Nutzungsbedingungen und klicke auf <strong>Regenerate Key</strong>, um einen neuen zu erstellen.</div>
+        <div class="warn-block"><strong>⚠️ API-Schlüssel abgelaufen?</strong> Das Ablaufdatum wird unter dem Schlüssel angezeigt. Klicke auf <strong>Regenerate Key</strong>, um einen neuen zu generieren.</div>
+        <div class="warn-block"><strong>⚠️ API-Schlüssel funktioniert nicht in WXStation Connect?</strong> Generiere einen neuen Schlüssel mit <strong>Regenerate Key</strong>. Alte Schlüssel können manchmal aufhören zu funktionieren und müssen erneuert werden.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── FRANÇAIS ─────────────── -->
+<section class="lang-section" id="lang-fr">
+  <div class="intro"><p>Suivez les trois étapes ci-dessous pour trouver votre <strong>clé API Weather Underground</strong> et votre <strong>Station ID</strong>, et les saisir dans <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Accédez à votre profil Weather Underground</h2></div>
+      <div class="step-body">
+        <p>Rendez-vous sur <strong>wunderground.com</strong> et connectez-vous à votre compte. Une fois connecté, cliquez sur <strong>My Profile</strong> en haut à droite de l'écran. Un menu déroulant s'affichera — sélectionnez <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Étape 1 – Menu déroulant My Profile avec l'option My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Trouvez votre Station ID et accédez aux clés API</h2></div>
+      <div class="step-body">
+        <p>Vous êtes maintenant sur la page <strong>Member Settings</strong>, dans l'onglet <strong>MY DEVICES</strong>. Vous y verrez la liste de vos stations météo enregistrées.</p>
+        <p>Dans la colonne <strong>ID</strong>, vous trouverez votre <strong>Station ID</strong> (ex. : <code>ICABRA64</code>). Copiez-le — vous en aurez également besoin dans WXStation Connect.</p>
+        <p>Pour accéder à votre clé API, cliquez sur l'onglet <strong>API KEYS</strong>.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Étape 2 – Member Settings avec Station ID et onglet API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Copiez ou générez votre clé API</h2></div>
+      <div class="step-body">
+        <p>Dans l'onglet <strong>API KEYS</strong>, vous trouverez votre clé API (masquée par défaut). Cliquez sur <strong>Show Key</strong> pour la révéler, puis sur <strong>Copy to Clipboard</strong> pour la coller dans WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Étape 3 – Onglet API Keys avec Copy to Clipboard et Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Pas encore de clé API ?</strong> Acceptez les Conditions d'utilisation et cliquez sur <strong>Regenerate Key</strong> pour en générer une nouvelle.</div>
+        <div class="warn-block"><strong>⚠️ Clé API expirée ?</strong> La date d'expiration est affichée sous la clé. Cliquez sur <strong>Regenerate Key</strong> pour en obtenir une nouvelle.</div>
+        <div class="warn-block"><strong>⚠️ La clé API ne fonctionne pas dans WXStation Connect ?</strong> Générez une nouvelle clé en cliquant sur <strong>Regenerate Key</strong>. Les anciennes clés peuvent parfois cesser de fonctionner et doivent être renouvelées.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── ITALIANO ─────────────── -->
+<section class="lang-section" id="lang-it">
+  <div class="intro"><p>Segui i tre passaggi sottostanti per trovare la tua <strong>API Key di Weather Underground</strong> e il tuo <strong>Station ID</strong>, e inserirli in <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Accedi al tuo profilo Weather Underground</h2></div>
+      <div class="step-body">
+        <p>Vai su <strong>wunderground.com</strong> ed effettua il login. Una volta connesso, clicca su <strong>My Profile</strong> in alto a destra. Apparirà un menu a tendina — seleziona <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Passo 1 – Menu a tendina My Profile con l'opzione My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Trova il tuo Station ID e accedi alle API Key</h2></div>
+      <div class="step-body">
+        <p>Sei ora nella schermata <strong>Member Settings</strong>, nella scheda <strong>MY DEVICES</strong>. Qui vedrai l'elenco delle tue stazioni meteorologiche registrate.</p>
+        <p>Nella colonna <strong>ID</strong> troverai il tuo <strong>Station ID</strong> (es. <code>ICABRA64</code>). Copialo — ti servirà anche in WXStation Connect.</p>
+        <p>Per accedere alla tua API Key, clicca sulla scheda <strong>API KEYS</strong>.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Passo 2 – Member Settings con Station ID e scheda API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Copia o genera la tua API Key</h2></div>
+      <div class="step-body">
+        <p>Nella scheda <strong>API KEYS</strong> troverai la tua chiave API (nascosta per impostazione predefinita). Clicca su <strong>Show Key</strong> per visualizzarla, poi su <strong>Copy to Clipboard</strong> per incollarla in WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Passo 3 – Scheda API Keys con Copy to Clipboard e Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Non hai ancora una API Key?</strong> Accetta i Termini di Servizio e clicca su <strong>Regenerate Key</strong> per generarne una nuova.</div>
+        <div class="warn-block"><strong>⚠️ API Key scaduta?</strong> La data di scadenza è mostrata sotto la chiave. Clicca su <strong>Regenerate Key</strong> per ottenerne una nuova.</div>
+        <div class="warn-block"><strong>⚠️ La API Key non funziona in WXStation Connect?</strong> Genera una nuova chiave cliccando su <strong>Regenerate Key</strong>. Le chiavi vecchie possono smettere di funzionare e devono essere rinnovate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── PORTUGUÊS ─────────────── -->
+<section class="lang-section" id="lang-pt">
+  <div class="intro"><p>Siga os três passos abaixo para localizar a sua <strong>API Key do Weather Underground</strong> e o seu <strong>Station ID</strong>, e inseri-los no <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Aceda ao seu perfil no Weather Underground</h2></div>
+      <div class="step-body">
+        <p>Visite <strong>wunderground.com</strong> e inicie sessão na sua conta. Uma vez dentro, clique em <strong>My Profile</strong> no canto superior direito do ecrã. Aparecerá um menu — selecione <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Passo 1 – Menu My Profile com a opção My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Encontre o seu Station ID e aceda às API Keys</h2></div>
+      <div class="step-body">
+        <p>Está agora na página <strong>Member Settings</strong>, no separador <strong>MY DEVICES</strong>. Verá a lista das suas estações meteorológicas registadas.</p>
+        <p>Na coluna <strong>ID</strong> encontrará o seu <strong>Station ID</strong> (ex.: <code>ICABRA64</code>). Copie-o — também precisará dele no WXStation Connect.</p>
+        <p>Para aceder à sua API Key, clique no separador <strong>API KEYS</strong>.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Passo 2 – Member Settings com Station ID e separador API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Copie ou gere a sua API Key</h2></div>
+      <div class="step-body">
+        <p>No separador <strong>API KEYS</strong> encontrará a sua chave de API (oculta por padrão). Clique em <strong>Show Key</strong> para a revelar, depois em <strong>Copy to Clipboard</strong> para a colar no WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Passo 3 – Separador API Keys com Copy to Clipboard e Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Ainda não tem API Key?</strong> Aceite os Termos de Serviço e clique em <strong>Regenerate Key</strong> para gerar uma nova.</div>
+        <div class="warn-block"><strong>⚠️ API Key expirada?</strong> A data de expiração aparece por baixo da chave. Clique em <strong>Regenerate Key</strong> para obter uma nova.</div>
+        <div class="warn-block"><strong>⚠️ A API Key não funciona no WXStation Connect?</strong> Gere uma nova chave clicando em <strong>Regenerate Key</strong>. As chaves antigas podem deixar de funcionar e precisam de ser renovadas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── NEDERLANDS ─────────────── -->
+<section class="lang-section" id="lang-nl">
+  <div class="intro"><p>Volg de drie stappen hieronder om je <strong>Weather Underground API-sleutel</strong> en <strong>Station ID</strong> te vinden en in te voeren in <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Toegang tot je Weather Underground-profiel</h2></div>
+      <div class="step-body">
+        <p>Ga naar <strong>wunderground.com</strong> en log in. Klik rechtsboven op <strong>My Profile</strong>. Er verschijnt een vervolgkeuzemenu — kies <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Stap 1 – My Profile dropdown met de optie My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Vind je Station ID en ga naar API Keys</h2></div>
+      <div class="step-body">
+        <p>Je bevindt je nu op de pagina <strong>Member Settings</strong>, op het tabblad <strong>MY DEVICES</strong>. Hier zie je je geregistreerde weerstations.</p>
+        <p>In de kolom <strong>ID</strong> staat je <strong>Station ID</strong> (bijv. <code>ICABRA64</code>). Kopieer dit — je hebt het ook nodig in WXStation Connect.</p>
+        <p>Klik op het tabblad <strong>API KEYS</strong> om naar je API-sleutel te gaan.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Stap 2 – Member Settings met Station ID en tabblad API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Kopieer of genereer je API-sleutel</h2></div>
+      <div class="step-body">
+        <p>Op het tabblad <strong>API KEYS</strong> zie je je API-sleutel (standaard verborgen). Klik op <strong>Show Key</strong> om hem te tonen, daarna op <strong>Copy to Clipboard</strong> om hem in te voegen in WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Stap 3 – API Keys tabblad met Copy to Clipboard en Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Nog geen API-sleutel?</strong> Accepteer de Servicevoorwaarden en klik op <strong>Regenerate Key</strong> om een nieuwe te genereren.</div>
+        <div class="warn-block"><strong>⚠️ API-sleutel verlopen?</strong> De vervaldatum wordt onder de sleutel weergegeven. Klik op <strong>Regenerate Key</strong> voor een nieuwe.</div>
+        <div class="warn-block"><strong>⚠️ API-sleutel werkt niet in WXStation Connect?</strong> Genereer een nieuwe sleutel door op <strong>Regenerate Key</strong> te klikken. Oude sleutels kunnen soms stoppen met werken en moeten worden vernieuwd.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── POLSKI ─────────────── -->
+<section class="lang-section" id="lang-pl">
+  <div class="intro"><p>Wykonaj trzy poniższe kroki, aby znaleźć swój <strong>klucz API Weather Underground</strong> i <strong>Station ID</strong>, a następnie wprowadzić je w <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Wejdź na swój profil Weather Underground</h2></div>
+      <div class="step-body">
+        <p>Przejdź na stronę <strong>wunderground.com</strong> i zaloguj się. Po zalogowaniu kliknij <strong>My Profile</strong> w prawym górnym rogu ekranu. Pojawi się menu — wybierz <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Krok 1 – Menu rozwijane My Profile z opcją My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Znajdź Station ID i przejdź do API Keys</h2></div>
+      <div class="step-body">
+        <p>Jesteś teraz na stronie <strong>Member Settings</strong>, w zakładce <strong>MY DEVICES</strong>. Zobaczysz listę swoich zarejestrowanych stacji pogodowych.</p>
+        <p>W kolumnie <strong>ID</strong> znajdziesz swój <strong>Station ID</strong> (np. <code>ICABRA64</code>). Skopiuj go — będzie potrzebny również w WXStation Connect.</p>
+        <p>Kliknij zakładkę <strong>API KEYS</strong>, aby przejść do klucza API.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Krok 2 – Member Settings z Station ID i zakładką API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Skopiuj lub wygeneruj klucz API</h2></div>
+      <div class="step-body">
+        <p>W zakładce <strong>API KEYS</strong> znajdziesz swój klucz API (domyślnie ukryty). Kliknij <strong>Show Key</strong>, aby go wyświetlić, a następnie <strong>Copy to Clipboard</strong>, aby wkleić go w WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Krok 3 – Zakładka API Keys z Copy to Clipboard i Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Nie masz jeszcze klucza API?</strong> Zaakceptuj Warunki korzystania z usługi i kliknij <strong>Regenerate Key</strong>, aby wygenerować nowy.</div>
+        <div class="warn-block"><strong>⚠️ Klucz API wygasł?</strong> Data wygaśnięcia jest wyświetlana pod kluczem. Kliknij <strong>Regenerate Key</strong>, aby uzyskać nowy.</div>
+        <div class="warn-block"><strong>⚠️ Klucz API nie działa w WXStation Connect?</strong> Wygeneruj nowy klucz, klikając <strong>Regenerate Key</strong>. Stare klucze mogą przestać działać i wymagają odnowienia.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── ČEŠTINA ─────────────── -->
+<section class="lang-section" id="lang-cs">
+  <div class="intro"><p>Postupujte podle tří níže uvedených kroků, abyste nalezli svůj <strong>API klíč Weather Underground</strong> a <strong>Station ID</strong> a zadali je do <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Přihlaste se do profilu Weather Underground</h2></div>
+      <div class="step-body">
+        <p>Navštivte <strong>wunderground.com</strong> a přihlaste se ke svému účtu. Po přihlášení klikněte na <strong>My Profile</strong> v pravém horním rohu. Zobrazí se rozbalovací nabídka — vyberte <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Krok 1 – Rozbalovací nabídka My Profile s možností My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Najděte své Station ID a přejděte na API Keys</h2></div>
+      <div class="step-body">
+        <p>Nyní jste na stránce <strong>Member Settings</strong>, na záložce <strong>MY DEVICES</strong>. Zde uvidíte seznam svých registrovaných meteorologických stanic.</p>
+        <p>Ve sloupci <strong>ID</strong> najdete své <strong>Station ID</strong> (např. <code>ICABRA64</code>). Zkopírujte jej — budete ho potřebovat i v aplikaci WXStation Connect.</p>
+        <p>Kliknutím na záložku <strong>API KEYS</strong> získáte přístup ke svému API klíči.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Krok 2 – Member Settings se Station ID a záložkou API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Zkopírujte nebo vygenerujte svůj API klíč</h2></div>
+      <div class="step-body">
+        <p>Na záložce <strong>API KEYS</strong> najdete svůj API klíč (ve výchozím nastavení skrytý). Klikněte na <strong>Show Key</strong> pro zobrazení a poté na <strong>Copy to Clipboard</strong> pro vložení do WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Krok 3 – Záložka API Keys s Copy to Clipboard a Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Nemáte ještě API klíč?</strong> Přijměte podmínky služby a klikněte na <strong>Regenerate Key</strong> k vytvoření nového.</div>
+        <div class="warn-block"><strong>⚠️ API klíč vypršel?</strong> Datum vypršení platnosti je zobrazeno pod klíčem. Klikněte na <strong>Regenerate Key</strong> pro získání nového.</div>
+        <div class="warn-block"><strong>⚠️ API klíč nefunguje ve WXStation Connect?</strong> Vygenerujte nový klíč kliknutím na <strong>Regenerate Key</strong>. Staré klíče mohou přestat fungovat a je nutné je obnovit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── DANSK ─────────────── -->
+<section class="lang-section" id="lang-da">
+  <div class="intro"><p>Følg de tre trin nedenfor for at finde din <strong>Weather Underground API-nøgle</strong> og dit <strong>Station ID</strong>, og indtast dem i <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Gå til din Weather Underground-profil</h2></div>
+      <div class="step-body">
+        <p>Besøg <strong>wunderground.com</strong> og log ind på din konto. Klik på <strong>My Profile</strong> øverst til højre. En rullemenu vises — vælg <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Trin 1 – My Profile rullemenu med indstillingen My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Find dit Station ID og naviger til API Keys</h2></div>
+      <div class="step-body">
+        <p>Du er nu på siden <strong>Member Settings</strong>, under fanen <strong>MY DEVICES</strong>. Her ser du dine registrerede vejrstationer.</p>
+        <p>I kolonnen <strong>ID</strong> finder du dit <strong>Station ID</strong> (f.eks. <code>ICABRA64</code>). Kopiér det — du skal også bruge det i WXStation Connect.</p>
+        <p>Klik på fanen <strong>API KEYS</strong> for at komme til din API-nøgle.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Trin 2 – Member Settings med Station ID og fanen API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Kopiér eller generer din API-nøgle</h2></div>
+      <div class="step-body">
+        <p>Under fanen <strong>API KEYS</strong> finder du din API-nøgle (skjult som standard). Klik på <strong>Show Key</strong> for at vise den, derefter på <strong>Copy to Clipboard</strong> for at indsætte den i WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Trin 3 – API Keys fanen med Copy to Clipboard og Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Ingen API-nøgle endnu?</strong> Acceptér servicevilkårene og klik på <strong>Regenerate Key</strong> for at generere en ny.</div>
+        <div class="warn-block"><strong>⚠️ API-nøglen er udløbet?</strong> Udløbsdatoen vises under nøglen. Klik på <strong>Regenerate Key</strong> for at få en ny.</div>
+        <div class="warn-block"><strong>⚠️ API-nøglen virker ikke i WXStation Connect?</strong> Generér en ny nøgle ved at klikke på <strong>Regenerate Key</strong>. Gamle nøgler kan holde op med at virke og skal fornyes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── SVENSKA ─────────────── -->
+<section class="lang-section" id="lang-sv">
+  <div class="intro"><p>Följ de tre stegen nedan för att hitta din <strong>Weather Underground API-nyckel</strong> och ditt <strong>Station ID</strong>, och ange dem i <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Gå till din Weather Underground-profil</h2></div>
+      <div class="step-body">
+        <p>Besök <strong>wunderground.com</strong> och logga in. Klicka på <strong>My Profile</strong> uppe till höger. En rullgardinsmeny visas — välj <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Steg 1 – My Profile rullgardinsmeny med alternativet My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Hitta ditt Station ID och navigera till API Keys</h2></div>
+      <div class="step-body">
+        <p>Du är nu på sidan <strong>Member Settings</strong>, under fliken <strong>MY DEVICES</strong>. Här ser du dina registrerade väderstationer.</p>
+        <p>I kolumnen <strong>ID</strong> finns ditt <strong>Station ID</strong> (t.ex. <code>ICABRA64</code>). Kopiera det — du behöver det även i WXStation Connect.</p>
+        <p>Klicka på fliken <strong>API KEYS</strong> för att komma till din API-nyckel.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Steg 2 – Member Settings med Station ID och fliken API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Kopiera eller generera din API-nyckel</h2></div>
+      <div class="step-body">
+        <p>På fliken <strong>API KEYS</strong> hittar du din API-nyckel (dold som standard). Klicka på <strong>Show Key</strong> för att visa den, sedan på <strong>Copy to Clipboard</strong> för att klistra in den i WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Steg 3 – Fliken API Keys med Copy to Clipboard och Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Ingen API-nyckel än?</strong> Acceptera användarvillkoren och klicka på <strong>Regenerate Key</strong> för att generera en ny.</div>
+        <div class="warn-block"><strong>⚠️ API-nyckeln har gått ut?</strong> Utgångsdatumet visas under nyckeln. Klicka på <strong>Regenerate Key</strong> för att få en ny.</div>
+        <div class="warn-block"><strong>⚠️ API-nyckeln fungerar inte i WXStation Connect?</strong> Generera en ny nyckel genom att klicka på <strong>Regenerate Key</strong>. Gamla nycklar kan sluta fungera och behöver förnyas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── NORSK ─────────────── -->
+<section class="lang-section" id="lang-nb">
+  <div class="intro"><p>Følg de tre trinnene nedenfor for å finne din <strong>Weather Underground API-nøkkel</strong> og ditt <strong>Station ID</strong>, og angi dem i <strong>WXStation Connect</strong>.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Gå til din Weather Underground-profil</h2></div>
+      <div class="step-body">
+        <p>Besøk <strong>wunderground.com</strong> og logg inn. Klikk på <strong>My Profile</strong> øverst til høyre. En rullegardinmeny vises — velg <strong>My Devices</strong>.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Trinn 1 – My Profile rullegardinmeny med alternativet My Devices" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>Finn ditt Station ID og naviger til API Keys</h2></div>
+      <div class="step-body">
+        <p>Du er nå på siden <strong>Member Settings</strong>, under fanen <strong>MY DEVICES</strong>. Her ser du dine registrerte værstasjoner.</p>
+        <p>I kolonnen <strong>ID</strong> finner du ditt <strong>Station ID</strong> (f.eks. <code>ICABRA64</code>). Kopier det — du trenger det også i WXStation Connect.</p>
+        <p>Klikk på fanen <strong>API KEYS</strong> for å gå til API-nøkkelen din.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Trinn 2 – Member Settings med Station ID og fanen API KEYS" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>Kopier eller generer din API-nøkkel</h2></div>
+      <div class="step-body">
+        <p>Under fanen <strong>API KEYS</strong> finner du din API-nøkkel (skjult som standard). Klikk på <strong>Show Key</strong> for å vise den, deretter på <strong>Copy to Clipboard</strong> for å lime den inn i WXStation Connect.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Trinn 3 – API Keys fanen med Copy to Clipboard og Regenerate Key" /></div>
+        <div class="warn-block"><strong>⚠️ Ingen API-nøkkel ennå?</strong> Godta tjenestevilkårene og klikk på <strong>Regenerate Key</strong> for å generere en ny.</div>
+        <div class="warn-block"><strong>⚠️ API-nøkkelen er utløpt?</strong> Utløpsdatoen vises under nøkkelen. Klikk på <strong>Regenerate Key</strong> for å få en ny.</div>
+        <div class="warn-block"><strong>⚠️ API-nøkkelen fungerer ikke i WXStation Connect?</strong> Generer en ny nøkkel ved å klikke på <strong>Regenerate Key</strong>. Gamle nøkler kan slutte å fungere og må fornyes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── TÜRKÇE ─────────────── -->
+<section class="lang-section" id="lang-tr">
+  <div class="intro"><p><strong>Weather Underground API anahtarınızı</strong> ve <strong>İstasyon Kimliğinizi</strong> bulmak ve bunları <strong>WXStation Connect</strong>'e girmek için aşağıdaki üç adımı izleyin.</p></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-header"><div class="step-number">1</div><h2>Weather Underground profilinize erişin</h2></div>
+      <div class="step-body">
+        <p><strong>wunderground.com</strong> adresine gidin ve hesabınıza giriş yapın. Giriş yaptıktan sonra ekranın sağ üst köşesindeki <strong>My Profile</strong> düğmesine tıklayın. Açılır bir menü görünecektir — <strong>My Devices</strong> seçeneğini seçin.</p>
+        <div class="screenshot"><img src="Captura%201%20Wunderground.png" alt="Adım 1 – My Devices seçeneğini gösteren My Profile açılır menüsü" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">2</div><h2>İstasyon Kimliğinizi bulun ve API Keys'e gidin</h2></div>
+      <div class="step-body">
+        <p>Şu anda <strong>Member Settings</strong> sayfasındasınız, <strong>MY DEVICES</strong> sekmesinde. Burada kayıtlı hava istasyonlarınızın listesini göreceksiniz.</p>
+        <p><strong>ID</strong> sütununda <strong>İstasyon Kimliğinizi</strong> bulacaksınız (örn. <code>ICABRA64</code>). Kopyalayın — WXStation Connect'te de ihtiyaç duyacaksınız.</p>
+        <p>API anahtarınıza erişmek için <strong>API KEYS</strong> sekmesine tıklayın.</p>
+        <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Adım 2 – İstasyon Kimliği ve API KEYS sekmesini gösteren Member Settings" /></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-header"><div class="step-number">3</div><h2>API anahtarınızı kopyalayın veya oluşturun</h2></div>
+      <div class="step-body">
+        <p><strong>API KEYS</strong> sekmesinde API anahtarınızı bulacaksınız (varsayılan olarak gizlidir). Görmek için <strong>Show Key</strong>'e tıklayın, ardından WXStation Connect'e yapıştırmak için <strong>Copy to Clipboard</strong>'a tıklayın.</p>
+        <div class="screenshot"><img src="Captura%203%20Wunderground.png" alt="Adım 3 – Copy to Clipboard ve Regenerate Key butonlarını gösteren API Keys sekmesi" /></div>
+        <div class="warn-block"><strong>⚠️ Henüz API anahtarınız yok mu?</strong> Hizmet Şartlarını kabul edin ve yeni bir tane oluşturmak için <strong>Regenerate Key</strong>'e tıklayın.</div>
+        <div class="warn-block"><strong>⚠️ API anahtarınızın süresi doldu mu?</strong> Son kullanma tarihi anahtarın altında gösterilir. Yeni bir tane almak için <strong>Regenerate Key</strong>'e tıklayın.</div>
+        <div class="warn-block"><strong>⚠️ API anahtarı WXStation Connect'te çalışmıyor mu?</strong> <strong>Regenerate Key</strong>'e tıklayarak yeni bir anahtar oluşturun. Eski anahtarlar bazen çalışmayı durdurabileceğinden yenilenmesi gerekir.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  WXStation Connect &nbsp;·&nbsp; Weather Underground API Key Guide &nbsp;·&nbsp; All rights reserved
+</footer>
+
+<script>
+  function showLang(lang) {
+    document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('lang-' + lang).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // Auto-detect browser language
+  (function() {
+    const browserLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    const supported = ['en','es','de','fr','it','pt','nl','pl','cs','da','sv','nb','tr'];
+    const match = supported.includes(browserLang) ? browserLang : 'en';
+    const btn = document.querySelector(`.lang-btn[onclick="showLang('${match}')"]`);
+    if (btn) {
+      document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('lang-' + match).classList.add('active');
+      btn.classList.add('active');
+    }
+  })();
+</script>
+
+</body>
+</html>
