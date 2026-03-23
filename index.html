@@ -6,35 +6,36 @@
   <title>WXStation Connect – API Key Guide</title>
   <style>
     :root {
-      --blue-dark:   #0d1b2a;
-      --blue-mid:    #1b4f72;
-      --blue-accent: #2e86c1;
-      --blue-light:  #aed6f1;
-      --teal:        #17a589;
+      --blue-dark:   #0f172a;
+      --blue-mid:    #1e293b;
+      --blue-accent: #667eea;
+      --blue-light:  #a5b4fc;
+      --teal:        #818cf8;
       --white:       #ffffff;
-      --gray-100:    #f4f6f9;
-      --gray-200:    #e8ecf0;
-      --gray-600:    #5a6a7a;
-      --warn:        #e67e22;
+      --gray-100:    #0f172a;
+      --gray-200:    #1e293b;
+      --gray-600:    #94a3b8;
+      --warn:        #f59e0b;
       --radius:      10px;
-      --shadow:      0 4px 20px rgba(0,0,0,0.12);
+      --shadow:      0 4px 24px rgba(0,0,0,0.35);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--gray-100);
-      color: var(--blue-dark);
+      background: #0f172a;
+      color: #e2e8f0;
       line-height: 1.65;
     }
 
     /* ── HEADER ── */
     header {
-      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #2d1f6e 100%);
       color: var(--white);
       padding: 48px 24px 40px;
       text-align: center;
+      border-bottom: 1px solid rgba(102,126,234,0.3);
     }
     header .logo {
       display: flex;
@@ -43,18 +44,19 @@
       gap: 14px;
       margin-bottom: 16px;
     }
-    header .logo svg { width: 48px; height: 48px; }
+    header .logo img { width: 72px; height: 72px; border-radius: 18px; }
     header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 700; letter-spacing: -0.5px; }
     header p  { margin-top: 10px; font-size: 1rem; opacity: .8; }
 
     /* ── LANG SELECTOR ── */
     .lang-bar {
-      background: var(--blue-dark);
-      padding: 0 24px 20px;
+      background: #0f172a;
+      padding: 12px 24px 20px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px;
+      border-bottom: 1px solid rgba(102,126,234,0.2);
     }
     .lang-btn {
       background: rgba(255,255,255,.1);
@@ -67,7 +69,7 @@
       transition: background .2s, transform .1s;
     }
     .lang-btn:hover  { background: rgba(255,255,255,.25); }
-    .lang-btn.active { background: var(--teal); border-color: var(--teal); font-weight: 600; }
+    .lang-btn.active { background: #667eea; border-color: #667eea; font-weight: 600; }
 
     /* ── MAIN CONTENT ── */
     main { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
@@ -77,26 +79,27 @@
 
     /* intro */
     .intro {
-      background: var(--white);
-      border-left: 5px solid var(--blue-accent);
+      background: #1e293b;
+      border-left: 5px solid #667eea;
       border-radius: var(--radius);
       padding: 24px 28px;
       margin-bottom: 40px;
       box-shadow: var(--shadow);
     }
-    .intro p { font-size: 1rem; color: var(--gray-600); }
+    .intro p { font-size: 1rem; color: #cbd5e1; }
 
     /* steps */
     .steps { display: flex; flex-direction: column; gap: 40px; }
 
     .step {
-      background: var(--white);
+      background: #1e293b;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
+      border: 1px solid rgba(102,126,234,0.15);
     }
     .step-header {
-      background: linear-gradient(90deg, var(--blue-accent), var(--blue-mid));
+      background: linear-gradient(90deg, #667eea, #4f46e5);
       color: var(--white);
       padding: 18px 28px;
       display: flex;
@@ -114,15 +117,15 @@
     .step-header h2 { font-size: 1.1rem; font-weight: 600; }
 
     .step-body { padding: 28px; }
-    .step-body p { font-size: .97rem; color: #2c3e50; margin-bottom: 14px; }
+    .step-body p { font-size: .97rem; color: #cbd5e1; margin-bottom: 14px; }
     .step-body p:last-child { margin-bottom: 0; }
 
     .screenshot {
       margin: 22px 0;
       border-radius: var(--radius);
       overflow: hidden;
-      border: 1px solid var(--gray-200);
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      border: 1px solid rgba(102,126,234,0.25);
+      box-shadow: 0 2px 16px rgba(0,0,0,.4);
     }
     .screenshot img {
       width: 100%;
@@ -131,23 +134,24 @@
 
     /* warnings */
     .warn-block {
-      background: #fef9f2;
-      border-left: 4px solid var(--warn);
+      background: rgba(245,158,11,0.1);
+      border-left: 4px solid #f59e0b;
       border-radius: 6px;
       padding: 14px 18px;
       margin: 14px 0;
       font-size: .93rem;
-      color: #7d5a2a;
+      color: #fcd34d;
     }
-    .warn-block strong { color: var(--warn); }
+    .warn-block strong { color: #fbbf24; }
 
     /* ── FOOTER ── */
     footer {
       text-align: center;
       padding: 28px;
       font-size: .82rem;
-      color: var(--gray-600);
-      background: var(--gray-200);
+      color: #64748b;
+      background: #0f172a;
+      border-top: 1px solid rgba(102,126,234,0.15);
     }
   </style>
 </head>
@@ -158,14 +162,7 @@
 ══════════════════════════════════════ -->
 <header>
   <div class="logo">
-    <!-- weather icon svg -->
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.1)"/>
-      <circle cx="32" cy="26" r="10" fill="#FAD02E"/>
-      <path d="M18 40c0-5.5 4.5-10 10-10h8c5.5 0 10 4.5 10 10" stroke="#AED6F1" stroke-width="3" stroke-linecap="round"/>
-      <ellipse cx="36" cy="40" rx="12" ry="7" fill="white" opacity=".9"/>
-      <ellipse cx="26" cy="42" rx="10" ry="6" fill="white"/>
-    </svg>
+    <img src="app_icon.png" alt="WXStation Connect" />
     <h1>WXStation Connect</h1>
   </div>
   <p id="header-subtitle">Weather Underground API Key – Setup Guide</p>
@@ -210,7 +207,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Find your Station ID and navigate to API Keys</h2></div>
       <div class="step-body">
         <p>You are now on the <strong>Member Settings</strong> page, under the <strong>MY DEVICES</strong> tab. Here you will see the list of your registered weather stations.</p>
-        <p>In the <strong>ID</strong> column you will find your <strong>Station ID</strong> (e.g. <code>ICABRA64</code>). Copy it — you will also need it in WXStation Connect.</p>
+        <p>In the <strong>ID</strong> column you will find your <strong>Station ID</strong>. Copy it — you will also need it in WXStation Connect.</p>
         <p>To access your API Key, click on the <strong>API KEYS</strong> tab at the top of the page.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Step 2 – Member Settings showing Station ID and API KEYS tab" /></div>
       </div>
@@ -243,7 +240,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Localiza tu Station ID y accede a las API Keys</h2></div>
       <div class="step-body">
         <p>Estás ahora en la pantalla <strong>Member Settings</strong>, en la pestaña <strong>MY DEVICES</strong>. Aquí verás la lista de tus estaciones meteorológicas registradas.</p>
-        <p>En la columna <strong>ID</strong> encontrarás tu <strong>Station ID</strong> (por ejemplo: <code>ICABRA64</code>). Cópialo — también lo necesitarás en WXStation Connect.</p>
+        <p>En la columna <strong>ID</strong> encontrarás tu <strong>Station ID</strong>. Cópialo — también lo necesitarás en WXStation Connect.</p>
         <p>Para acceder a tu API Key, haz clic en la pestaña <strong>API KEYS</strong> en la parte superior.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Paso 2 – Member Settings mostrando Station ID y la pestaña API KEYS" /></div>
       </div>
@@ -276,7 +273,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Station-ID finden und zu API-Schlüsseln navigieren</h2></div>
       <div class="step-body">
         <p>Du befindest dich nun auf der Seite <strong>Member Settings</strong>, im Tab <strong>MY DEVICES</strong>. Dort siehst du deine registrierten Wetterstationen.</p>
-        <p>In der Spalte <strong>ID</strong> findest du deine <strong>Station-ID</strong> (z.B. <code>ICABRA64</code>). Kopiere sie — du wirst sie auch in WXStation Connect benötigen.</p>
+        <p>In der Spalte <strong>ID</strong> findest du deine <strong>Station-ID</strong>. Kopiere sie — du wirst sie auch in WXStation Connect benötigen.</p>
         <p>Klicke auf den Tab <strong>API KEYS</strong>, um zu deinem API-Schlüssel zu gelangen.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Schritt 2 – Member Settings mit Station-ID und API KEYS Tab" /></div>
       </div>
@@ -309,7 +306,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Trouvez votre Station ID et accédez aux clés API</h2></div>
       <div class="step-body">
         <p>Vous êtes maintenant sur la page <strong>Member Settings</strong>, dans l'onglet <strong>MY DEVICES</strong>. Vous y verrez la liste de vos stations météo enregistrées.</p>
-        <p>Dans la colonne <strong>ID</strong>, vous trouverez votre <strong>Station ID</strong> (ex. : <code>ICABRA64</code>). Copiez-le — vous en aurez également besoin dans WXStation Connect.</p>
+        <p>Dans la colonne <strong>ID</strong>, vous trouverez votre <strong>Station ID</strong>. Copiez-le — vous en aurez également besoin dans WXStation Connect.</p>
         <p>Pour accéder à votre clé API, cliquez sur l'onglet <strong>API KEYS</strong>.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Étape 2 – Member Settings avec Station ID et onglet API KEYS" /></div>
       </div>
@@ -342,7 +339,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Trova il tuo Station ID e accedi alle API Key</h2></div>
       <div class="step-body">
         <p>Sei ora nella schermata <strong>Member Settings</strong>, nella scheda <strong>MY DEVICES</strong>. Qui vedrai l'elenco delle tue stazioni meteorologiche registrate.</p>
-        <p>Nella colonna <strong>ID</strong> troverai il tuo <strong>Station ID</strong> (es. <code>ICABRA64</code>). Copialo — ti servirà anche in WXStation Connect.</p>
+        <p>Nella colonna <strong>ID</strong> troverai il tuo <strong>Station ID</strong>. Copialo — ti servirà anche in WXStation Connect.</p>
         <p>Per accedere alla tua API Key, clicca sulla scheda <strong>API KEYS</strong>.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Passo 2 – Member Settings con Station ID e scheda API KEYS" /></div>
       </div>
@@ -375,7 +372,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Encontre o seu Station ID e aceda às API Keys</h2></div>
       <div class="step-body">
         <p>Está agora na página <strong>Member Settings</strong>, no separador <strong>MY DEVICES</strong>. Verá a lista das suas estações meteorológicas registadas.</p>
-        <p>Na coluna <strong>ID</strong> encontrará o seu <strong>Station ID</strong> (ex.: <code>ICABRA64</code>). Copie-o — também precisará dele no WXStation Connect.</p>
+        <p>Na coluna <strong>ID</strong> encontrará o seu <strong>Station ID</strong>. Copie-o — também precisará dele no WXStation Connect.</p>
         <p>Para aceder à sua API Key, clique no separador <strong>API KEYS</strong>.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Passo 2 – Member Settings com Station ID e separador API KEYS" /></div>
       </div>
@@ -408,7 +405,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Vind je Station ID en ga naar API Keys</h2></div>
       <div class="step-body">
         <p>Je bevindt je nu op de pagina <strong>Member Settings</strong>, op het tabblad <strong>MY DEVICES</strong>. Hier zie je je geregistreerde weerstations.</p>
-        <p>In de kolom <strong>ID</strong> staat je <strong>Station ID</strong> (bijv. <code>ICABRA64</code>). Kopieer dit — je hebt het ook nodig in WXStation Connect.</p>
+        <p>In de kolom <strong>ID</strong> staat je <strong>Station ID</strong>. Kopieer dit — je hebt het ook nodig in WXStation Connect.</p>
         <p>Klik op het tabblad <strong>API KEYS</strong> om naar je API-sleutel te gaan.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Stap 2 – Member Settings met Station ID en tabblad API KEYS" /></div>
       </div>
@@ -441,7 +438,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Znajdź Station ID i przejdź do API Keys</h2></div>
       <div class="step-body">
         <p>Jesteś teraz na stronie <strong>Member Settings</strong>, w zakładce <strong>MY DEVICES</strong>. Zobaczysz listę swoich zarejestrowanych stacji pogodowych.</p>
-        <p>W kolumnie <strong>ID</strong> znajdziesz swój <strong>Station ID</strong> (np. <code>ICABRA64</code>). Skopiuj go — będzie potrzebny również w WXStation Connect.</p>
+        <p>W kolumnie <strong>ID</strong> znajdziesz swój <strong>Station ID</strong>. Skopiuj go — będzie potrzebny również w WXStation Connect.</p>
         <p>Kliknij zakładkę <strong>API KEYS</strong>, aby przejść do klucza API.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Krok 2 – Member Settings z Station ID i zakładką API KEYS" /></div>
       </div>
@@ -474,7 +471,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Najděte své Station ID a přejděte na API Keys</h2></div>
       <div class="step-body">
         <p>Nyní jste na stránce <strong>Member Settings</strong>, na záložce <strong>MY DEVICES</strong>. Zde uvidíte seznam svých registrovaných meteorologických stanic.</p>
-        <p>Ve sloupci <strong>ID</strong> najdete své <strong>Station ID</strong> (např. <code>ICABRA64</code>). Zkopírujte jej — budete ho potřebovat i v aplikaci WXStation Connect.</p>
+        <p>Ve sloupci <strong>ID</strong> najdete své <strong>Station ID</strong>. Zkopírujte jej — budete ho potřebovat i v aplikaci WXStation Connect.</p>
         <p>Kliknutím na záložku <strong>API KEYS</strong> získáte přístup ke svému API klíči.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Krok 2 – Member Settings se Station ID a záložkou API KEYS" /></div>
       </div>
@@ -507,7 +504,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Find dit Station ID og naviger til API Keys</h2></div>
       <div class="step-body">
         <p>Du er nu på siden <strong>Member Settings</strong>, under fanen <strong>MY DEVICES</strong>. Her ser du dine registrerede vejrstationer.</p>
-        <p>I kolonnen <strong>ID</strong> finder du dit <strong>Station ID</strong> (f.eks. <code>ICABRA64</code>). Kopiér det — du skal også bruge det i WXStation Connect.</p>
+        <p>I kolonnen <strong>ID</strong> finder du dit <strong>Station ID</strong>. Kopiér det — du skal også bruge det i WXStation Connect.</p>
         <p>Klik på fanen <strong>API KEYS</strong> for at komme til din API-nøgle.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Trin 2 – Member Settings med Station ID og fanen API KEYS" /></div>
       </div>
@@ -540,7 +537,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Hitta ditt Station ID och navigera till API Keys</h2></div>
       <div class="step-body">
         <p>Du är nu på sidan <strong>Member Settings</strong>, under fliken <strong>MY DEVICES</strong>. Här ser du dina registrerade väderstationer.</p>
-        <p>I kolumnen <strong>ID</strong> finns ditt <strong>Station ID</strong> (t.ex. <code>ICABRA64</code>). Kopiera det — du behöver det även i WXStation Connect.</p>
+        <p>I kolonnen <strong>ID</strong> finns ditt <strong>Station ID</strong>. Kopiera det — du behöver det även i WXStation Connect.</p>
         <p>Klicka på fliken <strong>API KEYS</strong> för att komma till din API-nyckel.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Steg 2 – Member Settings med Station ID och fliken API KEYS" /></div>
       </div>
@@ -573,7 +570,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>Finn ditt Station ID og naviger til API Keys</h2></div>
       <div class="step-body">
         <p>Du er nå på siden <strong>Member Settings</strong>, under fanen <strong>MY DEVICES</strong>. Her ser du dine registrerte værstasjoner.</p>
-        <p>I kolonnen <strong>ID</strong> finner du ditt <strong>Station ID</strong> (f.eks. <code>ICABRA64</code>). Kopier det — du trenger det også i WXStation Connect.</p>
+        <p>I kolonnen <strong>ID</strong> finner du ditt <strong>Station ID</strong>. Kopier det — du trenger det også i WXStation Connect.</p>
         <p>Klikk på fanen <strong>API KEYS</strong> for å gå til API-nøkkelen din.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Trinn 2 – Member Settings med Station ID og fanen API KEYS" /></div>
       </div>
@@ -606,7 +603,7 @@
       <div class="step-header"><div class="step-number">2</div><h2>İstasyon Kimliğinizi bulun ve API Keys'e gidin</h2></div>
       <div class="step-body">
         <p>Şu anda <strong>Member Settings</strong> sayfasındasınız, <strong>MY DEVICES</strong> sekmesinde. Burada kayıtlı hava istasyonlarınızın listesini göreceksiniz.</p>
-        <p><strong>ID</strong> sütununda <strong>İstasyon Kimliğinizi</strong> bulacaksınız (örn. <code>ICABRA64</code>). Kopyalayın — WXStation Connect'te de ihtiyaç duyacaksınız.</p>
+        <p><strong>ID</strong> sütununda <strong>İstasyon Kimliğinizi</strong> bulacaksınız. Kopyalayın — WXStation Connect'te de ihtiyaç duyacaksınız.</p>
         <p>API anahtarınıza erişmek için <strong>API KEYS</strong> sekmesine tıklayın.</p>
         <div class="screenshot"><img src="Captura%202%20Wunderground.png" alt="Adım 2 – İstasyon Kimliği ve API KEYS sekmesini gösteren Member Settings" /></div>
       </div>
